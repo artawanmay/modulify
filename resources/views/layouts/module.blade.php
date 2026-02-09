@@ -45,10 +45,7 @@
 
             <div class="flex-1">
                 <header class="border-b border-slate-200 bg-white">
-                    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-                        <a class="inline-flex items-center" href="{{ route('modules.dashboard') }}">
-                            <x-application-logo class="block h-8 w-auto fill-current text-slate-900" />
-                        </a>
+                    <div class="mx-auto flex max-w-6xl items-center justify-end px-4 py-3 sm:px-6 lg:px-8">
                         <div class="flex items-center gap-4 text-sm text-slate-600">
                             @auth
                                 <span>{{ auth()->user()->name }}</span>
