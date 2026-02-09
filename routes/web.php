@@ -7,12 +7,16 @@ use App\Http\Middleware\EnsureModuleAccess;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        return redirect()->route('modules.dashboard');
+    }
+
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
     return redirect()->route('modules.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
 Route::get('/dashboard-modules', [ModulesDashboardController::class, 'index'])
     ->middleware('auth')

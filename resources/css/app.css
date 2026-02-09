@@ -228,6 +228,34 @@
         border: 1px solid rgba(var(--accent) / 0.25);
     }
 
+    .glass-navitem {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        border-radius: var(--radius-input);
+        padding: 0.55rem 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border: 1px solid transparent;
+        background: transparent;
+        color: rgb(var(--text-muted));
+        box-shadow: none;
+    }
+
+    .glass-navitem:hover {
+        color: rgb(var(--text));
+        background: rgba(var(--surface-strong) / 0.35);
+        border-color: rgba(var(--border) / 0.2);
+    }
+
+    .glass-navitem[aria-current='page'] {
+        color: rgb(var(--text));
+        background: rgba(var(--surface-strong) / 0.55);
+        border-color: rgba(var(--accent) / 0.45);
+        box-shadow: 0 12px 26px rgba(var(--shadow-color) / 0.2);
+    }
+
     .glass-divider {
         border-color: rgba(var(--border) / 0.2);
     }

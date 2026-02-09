@@ -11,7 +11,7 @@
     <body class="font-sans antialiased app-bg">
         <div class="min-h-screen">
             <header class="glass-topbar sticky top-0 z-20">
-                <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
+                <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
                     <div class="flex items-center gap-3">
                         <a class="flex items-center" href="{{ route('modules.dashboard') }}">
                             <x-application-logo class="block h-8 w-auto fill-current text-app" />
@@ -36,7 +36,7 @@
                 </div>
             </header>
 
-            <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+            <main class="mx-auto max-w-7xl px-6 py-8">
                 @yield('content')
             </main>
         </div>

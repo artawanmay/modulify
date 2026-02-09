@@ -9,56 +9,134 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body class="font-sans antialiased app-bg" x-data="{ sidebarOpen: window.innerWidth >= 1024 }">
-        <div class="min-h-screen lg:flex">
+    <body
+        class="font-sans antialiased app-bg"
+        x-data="{
+            sidebarState: 'expanded',
+            mobileOpen: false,
+            isDesktop: window.innerWidth >= 1024,
+            get isCollapsed() { return this.sidebarState === 'collapsed'; },
+            init() {
+                const stored = localStorage.getItem('modulify.sidebar');
+                if (stored === 'collapsed' || stored === 'expanded') {
+                    this.sidebarState = stored;
+                }
+                this.isDesktop = window.innerWidth >= 1024;
+                window.addEventListener('resize', () => {
+                    this.isDesktop = window.innerWidth >= 1024;
+                    if (this.isDesktop) {
+                        this.mobileOpen = false;
+                    }
+                });
+            },
+            setSidebarState(state) {
+                this.sidebarState = state;
+                localStorage.setItem('modulify.sidebar', state);
+            },
+            toggleSidebar() {
+                if (this.isDesktop) {
+                    this.setSidebarState(this.isCollapsed ? 'expanded' : 'collapsed');
+                    return;
+                }
+                this.mobileOpen = !this.mobileOpen;
+            },
+            closeMobile() {
+                this.mobileOpen = false;
+            }
+        }"
+    >
+        <div
+            class="min-h-screen lg:grid"
+            :class="isCollapsed ? 'lg:grid-cols-[4.5rem_1fr]' : 'lg:grid-cols-[18rem_1fr]'"
+        >
             <div
-                class="fixed inset-0 z-20 bg-slate-900/40 lg:hidden"
-                x-show="sidebarOpen"
+                class="fixed inset-0 z-30 bg-slate-900/40 lg:hidden"
+                x-show="mobileOpen"
                 x-transition.opacity
-                @click="sidebarOpen = false"
+                @click="closeMobile"
+                aria-hidden="true"
             ></div>
 
             <aside
-                class="glass-sidebar fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto overflow-x-hidden transition-[transform,width,opacity] duration-300 lg:static"
-                :class="sidebarOpen ? 'translate-x-0 lg:w-64 lg:translate-x-0 lg:opacity-100' : '-translate-x-full lg:w-0 lg:-translate-x-full lg:opacity-0 lg:pointer-events-none'"
+                id="app-sidebar"
+                class="glass-sidebar group fixed inset-y-0 left-0 z-40 w-72 overflow-y-auto overflow-x-hidden transition-[transform,width] duration-300 lg:static lg:z-20 lg:translate-x-0 lg:overflow-visible"
+                :class="[mobileOpen ? 'translate-x-0' : '-translate-x-full', isCollapsed ? 'lg:w-[4.5rem] lg:hover:w-72' : 'lg:w-72']"
+                @keydown.escape.window="closeMobile"
             >
-                <div class="flex items-center justify-between border-b glass-divider px-5 py-5">
+                <div
+                    class="flex items-center justify-between border-b glass-divider px-4 py-4"
+                    :class="isCollapsed ? 'lg:px-3' : 'lg:px-5'"
+                >
                     <div class="flex items-center gap-3">
                         <button
-                            class="inline-flex items-center justify-center rounded-md border border-white/10 p-2 text-muted hover:text-app"
+                            class="inline-flex items-center justify-center rounded-md border border-white/10 p-2 text-muted hover:text-app lg:hidden"
                             type="button"
-                            @click="sidebarOpen = ! sidebarOpen"
-                            aria-label="Toggle sidebar"
-                            :aria-expanded="sidebarOpen ? 'true' : 'false'"
+                            @click="closeMobile"
+                            aria-label="Close sidebar"
                         >
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
+                            <x-heroicon-o-x-mark class="h-5 w-5" />
                         </button>
-                        <a class="inline-flex items-center gap-3" href="{{ route('modules.dashboard') }}">
+                        <a
+                            class="inline-flex items-center gap-3"
+                            :class="isCollapsed ? 'lg:gap-0' : ''"
+                            href="{{ route('modules.dashboard') }}"
+                        >
                             <x-application-logo class="block h-8 w-auto fill-current text-app" />
-                            <span class="text-base font-semibold text-app">Modulify</span>
+                            <span
+                                class="inline-flex items-center text-base font-semibold text-app transition-[opacity,max-width] duration-200 lg:whitespace-nowrap"
+                                :class="isCollapsed ? 'lg:opacity-0 lg:max-w-0 lg:overflow-hidden lg:group-hover:opacity-100 lg:group-hover:max-w-[20rem]' : 'lg:opacity-100 lg:max-w-none'"
+                            >
+                                Modulify
+                            </span>
                         </a>
                     </div>
                 </div>
-                <div class="px-5 py-4">
-                    <a class="glass-btn w-full" href="{{ route('modules.dashboard') }}">
-                        Back to Modules Dashboard
+                <div class="px-4 py-3" :class="isCollapsed ? 'lg:px-2' : 'lg:px-5'">
+                    <a
+                        class="glass-navitem glass-btn-ghost"
+                        :class="isCollapsed ? 'lg:justify-center lg:gap-0' : 'lg:justify-start'"
+                        href="{{ route('modules.dashboard') }}"
+                    >
+                        <x-heroicon-o-arrow-left class="h-5 w-5" />
+                        <span
+                            class="inline-flex items-center text-sm font-medium transition-[opacity,max-width] duration-200 lg:whitespace-nowrap"
+                            :class="isCollapsed ? 'lg:opacity-0 lg:max-w-0 lg:overflow-hidden lg:group-hover:opacity-100 lg:group-hover:max-w-[20rem]' : 'lg:opacity-100 lg:max-w-none'"
+                        >
+                            Back to Modules Dashboard
+                        </span>
                     </a>
                 </div>
-                <nav class="space-y-6 px-5 pb-8">
+                <nav class="space-y-6 px-4 pb-8" :class="isCollapsed ? 'lg:px-2' : 'lg:px-5'" aria-label="Module navigation">
                     @forelse ($menuGroups as $group => $menus)
                         @if ($group === 'Admin' && ! $showAdminGroup)
                             @continue
                         @endif
                         <div>
-                            <div class="text-xs font-semibold uppercase tracking-wide text-muted">
+                            <div
+                                class="text-xs font-semibold uppercase tracking-wide text-muted transition-[opacity,max-width] duration-200 lg:whitespace-nowrap"
+                                :class="isCollapsed ? 'lg:opacity-0 lg:max-w-0 lg:overflow-hidden lg:group-hover:opacity-100 lg:group-hover:max-w-[20rem]' : 'lg:opacity-100 lg:max-w-none'"
+                            >
                                 {{ $group }}
                             </div>
                             <div class="mt-3 space-y-1">
                                 @foreach ($menus as $menu)
-                                    <a class="glass-btn glass-btn-ghost w-full justify-start px-3 py-2 text-sm" href="{{ route($menu->route_name) }}">
-                                        {{ $menu->label }}
+                                    @php $isActive = request()->routeIs($menu->route_name); @endphp
+                                    <a
+                                        class="glass-navitem glass-btn-ghost"
+                                        :class="isCollapsed ? 'lg:justify-center lg:gap-0' : 'lg:justify-start'"
+                                        href="{{ route($menu->route_name) }}"
+                                        @if ($isActive) aria-current="page" @endif
+                                    >
+                                        <x-dynamic-component
+                                            :component="$menu->icon ?: 'heroicon-o-rectangle-stack'"
+                                            class="h-5 w-5"
+                                        />
+                                        <span
+                                            class="inline-flex items-center text-sm font-medium transition-[opacity,max-width] duration-200 lg:whitespace-nowrap"
+                                            :class="isCollapsed ? 'lg:opacity-0 lg:max-w-0 lg:overflow-hidden lg:group-hover:opacity-100 lg:group-hover:max-w-[20rem]' : 'lg:opacity-100 lg:max-w-none'"
+                                        >
+                                            {{ $menu->label }}
+                                        </span>
                                     </a>
                                 @endforeach
                             </div>
@@ -69,16 +147,17 @@
                 </nav>
             </aside>
 
-            <div class="flex-1">
+            <div class="min-w-0">
                 <header class="glass-topbar sticky top-0 z-20">
-                    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
+                    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
                         <div class="flex items-center gap-3">
                             <button
                                 class="inline-flex items-center justify-center rounded-md border border-white/10 p-2.5 text-muted hover:text-app"
                                 type="button"
-                                @click="sidebarOpen = ! sidebarOpen"
+                                @click="toggleSidebar"
                                 aria-label="Toggle sidebar"
-                                :aria-expanded="sidebarOpen ? 'true' : 'false'"
+                                aria-controls="app-sidebar"
+                                :aria-expanded="isDesktop ? (!isCollapsed).toString() : (mobileOpen ? 'true' : 'false')"
                             >
                                 <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -103,7 +182,7 @@
                     </div>
                 </header>
 
-                <main class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+                <main class="mx-auto w-full max-w-6xl px-6 py-8">
                     @yield('content')
                 </main>
             </div>
