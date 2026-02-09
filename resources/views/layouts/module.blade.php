@@ -66,9 +66,9 @@
 
             <div class="flex-1">
                 <header class="border-b border-slate-200 bg-white">
-                    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+                    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                         <button
-                            class="inline-flex items-center justify-center rounded-md border border-slate-200 p-2 text-slate-600 hover:text-slate-900 lg:hidden"
+                            class="inline-flex items-center justify-center rounded-md border border-slate-200 p-2.5 text-slate-600 hover:text-slate-900 lg:hidden"
                             type="button"
                             @click="sidebarOpen = true"
                             aria-label="Open sidebar"
