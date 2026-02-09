@@ -9,7 +9,7 @@
     <body class="min-h-screen bg-slate-100 text-slate-900">
         <div class="min-h-screen">
             <header class="bg-white shadow-sm">
-                <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+                <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
                     <a class="flex items-center" href="{{ route('modules.dashboard') }}">
                         <x-application-logo class="block h-8 w-auto fill-current text-slate-900" />
                     </a>
@@ -26,7 +26,7 @@
                 </div>
             </header>
 
-            <main class="mx-auto max-w-7xl px-6 py-8">
+            <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 @yield('content')
             </main>
         </div>

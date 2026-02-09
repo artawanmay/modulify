@@ -10,7 +10,7 @@
     <body class="min-h-screen bg-slate-100 text-slate-900">
         <div class="min-h-screen lg:flex">
             <aside class="w-full bg-white lg:w-64 lg:border-r lg:border-slate-200">
-                <div class="border-b border-slate-200 px-5 py-6">
+                <div class="border-b border-slate-200 px-5 py-5">
                     <a class="inline-flex items-center" href="{{ route('modules.dashboard') }}">
                         <x-application-logo class="block h-8 w-auto fill-current text-slate-900" />
                     </a>
@@ -45,7 +45,7 @@
 
             <div class="flex-1">
                 <header class="border-b border-slate-200 bg-white">
-                    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+                    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
                         <a class="inline-flex items-center" href="{{ route('modules.dashboard') }}">
                             <x-application-logo class="block h-8 w-auto fill-current text-slate-900" />
                         </a>
@@ -61,7 +61,7 @@
                     </div>
                 </header>
 
-                <main class="mx-auto w-full max-w-6xl px-6 py-8">
+                <main class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
                     @yield('content')
                 </main>
             </div>
