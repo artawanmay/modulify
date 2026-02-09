@@ -10,7 +10,9 @@
         <div class="min-h-screen">
             <header class="bg-white shadow-sm">
                 <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-                    <div class="text-lg font-semibold">Modules</div>
+                    <a class="flex items-center" href="{{ route('modules.dashboard') }}">
+                        <x-application-logo class="block h-8 w-auto fill-current text-slate-900" />
+                    </a>
                     <div class="flex items-center gap-4 text-sm text-slate-600">
                         @auth
                             <span>{{ auth()->user()->name }}</span>
