@@ -3,19 +3,19 @@
 @section('content')
     <div class="max-w-4xl space-y-6">
         <div>
-            <h1 class="text-2xl font-semibold text-slate-900">Assign Permissions to Role</h1>
-            <p class="mt-2 text-sm text-slate-600">Select a role and manage its permissions.</p>
+            <h1 class="text-2xl font-semibold text-app">Assign Permissions to Role</h1>
+            <p class="mt-2 text-sm text-muted">Select a role and manage its permissions.</p>
         </div>
 
         @if (session('status'))
-            <div class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+            <div class="glass-surface px-4 py-3 text-sm text-app">
                 {{ session('status') }}
             </div>
         @endif
 
-        <form method="GET" action="{{ route('ac.assign.role-permissions') }}" class="rounded-lg border border-slate-200 bg-white p-6">
-            <label class="block text-sm font-medium text-slate-700">Select Role</label>
-            <select name="role_id" class="mt-2 w-full rounded-lg border-slate-300 shadow-sm focus:border-slate-500 focus:ring-slate-500" onchange="this.form.submit()">
+        <form method="GET" action="{{ route('ac.assign.role-permissions') }}" class="glass-card">
+            <label class="block text-sm font-medium text-app">Select Role</label>
+            <select name="role_id" class="glass-input mt-2" onchange="this.form.submit()">
                 @foreach ($roles as $role)
                     <option value="{{ $role->id }}" @if ($selectedRole && $selectedRole->id === $role->id) selected @endif>
                         {{ $role->name }}
@@ -25,18 +25,18 @@
         </form>
 
         @if ($selectedRole)
-            <form class="space-y-4 rounded-lg border border-slate-200 bg-white p-6" method="POST" action="{{ route('ac.assign.role-permissions.save') }}">
+            <form class="glass-card space-y-4" method="POST" action="{{ route('ac.assign.role-permissions.save') }}">
                 @csrf
                 <input type="hidden" name="role_id" value="{{ $selectedRole->id }}">
 
                 <div class="grid gap-2 sm:grid-cols-2">
                     @foreach ($permissions as $permission)
-                        <label class="flex items-center gap-2 text-sm text-slate-700">
+                        <label class="flex items-center gap-2 text-sm text-app">
                             <input
                                 type="checkbox"
                                 name="permissions[]"
                                 value="{{ $permission->name }}"
-                                class="rounded border-slate-300 text-slate-900 focus:ring-slate-500"
+                                class="rounded border-white/20 bg-transparent text-emerald-300 focus:ring-0"
                                 @if ($selectedRole->permissions->pluck('name')->contains($permission->name)) checked @endif
                             >
                             {{ $permission->name }}
@@ -45,13 +45,13 @@
                 </div>
 
                 <div>
-                    <button class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800" type="submit">
+                    <button class="glass-btn glass-btn-primary" type="submit">
                         Save Permissions
                     </button>
                 </div>
             </form>
         @else
-            <div class="rounded-lg border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-600">
+            <div class="glass-card text-sm text-muted">
                 No roles available.
             </div>
         @endif

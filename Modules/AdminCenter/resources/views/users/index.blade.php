@@ -3,31 +3,31 @@
 @section('content')
     <div class="flex flex-wrap items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-semibold text-slate-900">Users</h1>
-            <p class="mt-2 text-sm text-slate-600">Manage user accounts and roles.</p>
+            <h1 class="text-2xl font-semibold text-app">Users</h1>
+            <p class="mt-2 text-sm text-muted">Manage user accounts and roles.</p>
         </div>
         @can('users.create')
-            <a class="inline-flex items-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800" href="{{ route('ac.users.create') }}">
+            <a class="glass-btn glass-btn-primary" href="{{ route('ac.users.create') }}">
                 Create User
             </a>
         @endcan
     </div>
 
     @if (session('status'))
-        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+        <div class="mt-4 glass-surface px-4 py-3 text-sm text-app">
             {{ session('status') }}
         </div>
     @endif
 
     @if ($errors->any())
-        <div class="mt-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div class="mt-4 glass-surface px-4 py-3 text-sm text-rose-300">
             {{ $errors->first() }}
         </div>
     @endif
 
-    <div class="mt-6 overflow-hidden rounded-lg border border-slate-200 bg-white">
+    <div class="mt-6 glass-table">
         <table class="min-w-full text-sm">
-            <thead class="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <thead class="text-left text-xs font-semibold uppercase tracking-wide text-muted">
                 <tr>
                     <th class="px-4 py-3">Name</th>
                     <th class="px-4 py-3">Email</th>
@@ -35,7 +35,7 @@
                     <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-200">
+            <tbody class="divide-y divide-white/10">
                 @forelse ($users as $user)
                     <tr>
                         <td class="px-4 py-3">{{ $user->name }}</td>
@@ -43,18 +43,18 @@
                         <td class="px-4 py-3">
                             <div class="flex flex-wrap gap-2">
                                 @forelse ($user->roles as $role)
-                                    <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+                                    <span class="glass-badge">
                                         {{ $role->name }}
                                     </span>
                                 @empty
-                                    <span class="text-xs text-slate-400">No roles</span>
+                                    <span class="text-xs text-muted">No roles</span>
                                 @endforelse
                             </div>
                         </td>
                         <td class="px-4 py-3 text-right">
                             <div class="flex justify-end gap-2">
                                 @can('users.edit')
-                                    <a class="rounded-md border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 hover:bg-slate-100" href="{{ route('ac.users.edit', $user) }}">
+                                    <a class="glass-btn glass-btn-ghost text-xs" href="{{ route('ac.users.edit', $user) }}">
                                         Edit
                                     </a>
                                 @endcan
@@ -62,7 +62,7 @@
                                     <form method="POST" action="{{ route('ac.users.destroy', $user) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="rounded-md border border-rose-200 px-3 py-1 text-xs font-semibold text-rose-600 hover:bg-rose-50" type="submit">
+                                        <button class="glass-btn glass-btn-danger text-xs" type="submit">
                                             Delete
                                         </button>
                                     </form>
@@ -72,7 +72,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-4 py-8 text-center text-slate-500">No users found.</td>
+                        <td colspan="4" class="px-4 py-8 text-center text-muted">No users found.</td>
                     </tr>
                 @endforelse
             </tbody>

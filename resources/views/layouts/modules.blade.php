@@ -4,22 +4,32 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ $title ?? 'Modules Dashboard' }}</title>
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=plus+jakarta+sans:400,500,600,700&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="min-h-screen bg-slate-100 text-slate-900">
+    <body class="font-sans antialiased app-bg">
         <div class="min-h-screen">
-            <header class="bg-white shadow-sm">
-                <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-                    <a class="flex items-center" href="{{ route('modules.dashboard') }}">
-                        <x-application-logo class="block h-8 w-auto fill-current text-slate-900" />
-                    </a>
-                    <div class="flex items-center gap-4 text-sm text-slate-600">
+            <header class="glass-topbar sticky top-0 z-20">
+                <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
+                    <div class="flex items-center gap-3">
+                        <a class="flex items-center" href="{{ route('modules.dashboard') }}">
+                            <x-application-logo class="block h-8 w-auto fill-current text-app" />
+                        </a>
+                        <button class="glass-btn glass-btn-ghost" type="button" data-theme-toggle>
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364-1.414 1.414M7.05 16.95l-1.414 1.414m0-11.314 1.414 1.414m11.314 11.314-1.414-1.414" />
+                            </svg>
+                            <span data-theme-label>Dark</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-muted">
                         @auth
-                            <span>{{ auth()->user()->name }}</span>
-                            <a class="hover:text-slate-900" href="{{ route('profile.edit') }}">Profile</a>
+                            <span class="text-app">{{ auth()->user()->name }}</span>
+                            <a class="glass-btn glass-btn-ghost" href="{{ route('profile.edit') }}">Profile</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button class="hover:text-slate-900" type="submit">Logout</button>
+                                <button class="glass-btn glass-btn-ghost" type="submit">Logout</button>
                             </form>
                         @endauth
                     </div>

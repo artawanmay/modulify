@@ -3,31 +3,31 @@
 @section('content')
     <div class="flex flex-wrap items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-semibold text-slate-900">Roles</h1>
-            <p class="mt-2 text-sm text-slate-600">Manage role definitions.</p>
+            <h1 class="text-2xl font-semibold text-app">Roles</h1>
+            <p class="mt-2 text-sm text-muted">Manage role definitions.</p>
         </div>
         @can('roles.create')
-            <a class="inline-flex items-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800" href="{{ route('ac.roles.create') }}">
+            <a class="glass-btn glass-btn-primary" href="{{ route('ac.roles.create') }}">
                 Create Role
             </a>
         @endcan
     </div>
 
     @if (session('status'))
-        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+        <div class="mt-4 glass-surface px-4 py-3 text-sm text-app">
             {{ session('status') }}
         </div>
     @endif
 
     @if ($errors->any())
-        <div class="mt-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div class="mt-4 glass-surface px-4 py-3 text-sm text-rose-300">
             {{ $errors->first() }}
         </div>
     @endif
 
-    <div class="mt-6 overflow-hidden rounded-lg border border-slate-200 bg-white">
+    <div class="mt-6 glass-table">
         <table class="min-w-full text-sm">
-            <thead class="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <thead class="text-left text-xs font-semibold uppercase tracking-wide text-muted">
                 <tr>
                     <th class="px-4 py-3">Role</th>
                     <th class="px-4 py-3">Users</th>
@@ -35,7 +35,7 @@
                     <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-200">
+            <tbody class="divide-y divide-white/10">
                 @forelse ($roles as $role)
                     <tr>
                         <td class="px-4 py-3">{{ $role->name }}</td>
@@ -44,7 +44,7 @@
                         <td class="px-4 py-3 text-right">
                             <div class="flex justify-end gap-2">
                                 @can('roles.edit')
-                                    <a class="rounded-md border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 hover:bg-slate-100" href="{{ route('ac.roles.edit', $role) }}">
+                                    <a class="glass-btn glass-btn-ghost text-xs" href="{{ route('ac.roles.edit', $role) }}">
                                         Edit
                                     </a>
                                 @endcan
@@ -52,7 +52,7 @@
                                     <form method="POST" action="{{ route('ac.roles.destroy', $role) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="rounded-md border border-rose-200 px-3 py-1 text-xs font-semibold text-rose-600 hover:bg-rose-50" type="submit">
+                                        <button class="glass-btn glass-btn-danger text-xs" type="submit">
                                             Delete
                                         </button>
                                     </form>
@@ -62,7 +62,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-4 py-8 text-center text-slate-500">No roles found.</td>
+                        <td colspan="4" class="px-4 py-8 text-center text-muted">No roles found.</td>
                     </tr>
                 @endforelse
             </tbody>

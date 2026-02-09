@@ -1,0 +1,79 @@
+@import '../../app.css';
+
+:root {
+    --primary-50: 240 253 250;
+    --primary-100: 204 251 241;
+    --primary-200: 153 246 228;
+    --primary-300: 94 234 212;
+    --primary-400: 45 212 191;
+    --primary-500: var(--accent);
+    --primary-600: var(--accent-strong);
+    --primary-700: 15 118 110;
+    --primary-800: 17 94 89;
+    --primary-900: 19 78 74;
+    --primary-950: 4 47 46;
+}
+
+.fi-body {
+    background: var(--bg-gradient);
+    color: rgb(var(--text));
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+}
+
+.fi-topbar,
+.fi-sidebar,
+.fi-card,
+.fi-section,
+.fi-wi,
+.fi-ta-table,
+.fi-fo-field-wrp,
+.fi-fo-section {
+    background: rgba(var(--surface) / var(--glass-opacity));
+    border: 1px solid rgba(var(--border) / var(--border-opacity));
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.fi-topbar {
+    border-bottom: 1px solid rgba(var(--border) / var(--border-opacity));
+}
+
+.fi-sidebar {
+    border-right: 1px solid rgba(var(--border) / var(--border-opacity));
+}
+
+.fi-main {
+    background: transparent;
+}
+
+.fi-btn {
+    border-radius: var(--radius-input);
+}
+
+.fi-input,
+.fi-select,
+.fi-fo-text-input input,
+.fi-fo-select select,
+.fi-fo-textarea textarea {
+    background: rgba(var(--surface-strong) / var(--input-opacity));
+    border: 1px solid rgba(var(--border) / var(--border-opacity));
+    color: rgb(var(--text));
+}
+
+.fi-input:focus,
+.fi-select:focus,
+.fi-fo-text-input input:focus,
+.fi-fo-select select:focus,
+.fi-fo-textarea textarea:focus {
+    border-color: rgba(var(--accent) / 0.7);
+    box-shadow: 0 0 0 2px rgba(var(--accent) / 0.35);
+}
+
+.fi-ta-table thead {
+    background: rgba(var(--surface-strong) / 0.6);
+}
+
+.fi-ta-table tbody tr:hover {
+    background: rgba(var(--surface-strong) / 0.35);
+}
