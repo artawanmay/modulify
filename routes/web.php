@@ -11,7 +11,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('modules.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard-modules', [ModulesDashboardController::class, 'index'])
