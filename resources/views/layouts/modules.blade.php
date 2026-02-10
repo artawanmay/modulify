@@ -1,3 +1,10 @@
+{{--
+/**
+ * Purpose: Layout for the Modules Dashboard (/dashboard-modules).
+ * Extends: Adjust the topbar or container for the modules landing page here.
+ * Notes: Cards are rendered by ModulesDashboardController.
+ */
+--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

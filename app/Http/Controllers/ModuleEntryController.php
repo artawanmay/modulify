@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Purpose: Redirect /m/{moduleKey} to the module's configured entry route.
+ * Extends: Add tracking or onboarding redirects per module here.
+ * Notes: Relies on EnsureModuleAccess to validate access.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Module;

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Purpose: Guard module routes by validating module existence, active status, and access permission.
+ * Extends: Add extra module-level checks (tenant, plan, etc.) here if needed.
+ * Notes: Expects a moduleKey route parameter and sets activeModule on the request.
+ */
+
 namespace App\Http\Middleware;
 
 use App\Models\Module;

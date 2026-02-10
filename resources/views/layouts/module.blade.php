@@ -1,3 +1,10 @@
+{{--
+/**
+ * Purpose: Base layout for module area (sidebar + topbar shell).
+ * Extends: Update layout, sidebar, or topbar for all module pages here.
+ * Notes: Menu groups are injected via AppServiceProvider view composer.
+ */
+--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

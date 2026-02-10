@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Purpose: Render the modules dashboard with modules the user can access.
+ * Extends: Adjust module filtering, ordering, or card data here.
+ * Notes: Uses Module model + access {moduleKey} permissions.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Module;

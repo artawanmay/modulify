@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Purpose: Seed core roles, permissions, modules, and sidebar menus.
+ * Extends: Add new module definitions, permissions, and menus here.
+ * Notes: Keep module keys, routes, and permissions in sync with module routes.
+ */
+
 namespace Database\Seeders;
 
 use App\Models\Module;
@@ -39,6 +45,14 @@ class DatabaseSeeder extends Seeder
                 'icon' => 'heroicon-o-briefcase',
                 'entry_route' => 'pm.dashboard',
                 'sort' => 1,
+                'is_active' => true,
+            ],
+            'example-modules' => [
+                'name' => 'Example Modules',
+                'description' => 'Developer guide module',
+                'icon' => '🧩',
+                'entry_route' => 'ex.dashboard',
+                'sort' => 2,
                 'is_active' => true,
             ],
         ];
@@ -87,7 +101,11 @@ class DatabaseSeeder extends Seeder
         $superAdminRole->syncPermissions($allPermissionNames);
 
         $adminPermissionNames = array_values(array_filter($allPermissionNames, function (string $permission) {
-            return ! str_ends_with($permission, '.delete');
+            if (str_ends_with($permission, '.delete')) {
+                return str_starts_with($permission, 'example-modules.');
+            }
+
+            return true;
         }));
         $adminRole->syncPermissions($adminPermissionNames);
 
@@ -215,6 +233,35 @@ class DatabaseSeeder extends Seeder
                     'sort' => 2,
                     'permission_name' => 'project-management.edit',
                     'group' => 'Admin',
+                    'is_active' => true,
+                ],
+            ],
+            'example-modules' => [
+                [
+                    'label' => 'Dashboard',
+                    'route_name' => 'ex.dashboard',
+                    'icon' => 'heroicon-o-home',
+                    'sort' => 1,
+                    'permission_name' => 'example-modules.view',
+                    'group' => 'Main',
+                    'is_active' => true,
+                ],
+                [
+                    'label' => 'Sidebar & Menus',
+                    'route_name' => 'ex.sidebar',
+                    'icon' => 'heroicon-o-bars-3-bottom-left',
+                    'sort' => 2,
+                    'permission_name' => 'example-modules.view',
+                    'group' => 'Main',
+                    'is_active' => true,
+                ],
+                [
+                    'label' => 'Files & Folders',
+                    'route_name' => 'ex.files',
+                    'icon' => 'heroicon-o-folder-open',
+                    'sort' => 3,
+                    'permission_name' => 'example-modules.view',
+                    'group' => 'Main',
                     'is_active' => true,
                 ],
             ],
